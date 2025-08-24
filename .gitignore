@@ -7,6 +7,7 @@ candles/*
 **/coveragereport/
 **/docs/_site
 **/generated/prisma/
+.states/
 
 ############################### VisualStudioCode ###############################
 

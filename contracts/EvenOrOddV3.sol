@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract EvenOrOddV2 {
+contract EvenOrOddV3 {
 
     string public choice = ""; // EVEN or ODD
 

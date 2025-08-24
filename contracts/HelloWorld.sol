@@ -6,7 +6,7 @@ contract HelloWorld {
 
     int8 internal age = 34; // 8bits = between -128 and 128 - default int256 - other languages = 32
 
-    uint8 private age2 = 34; // between 0 and 255
+    uint8 private _age2 = 34; // between 0 and 255
 
     // solidity don't have float/double
 
@@ -19,5 +19,13 @@ contract HelloWorld {
     enum Keys { ON, OFF }
 
     Keys public status = Keys.ON;
+
+    function getAge2() public view returns(uint8) {
+        return _age2;
+    }
+
+    function setAge2(uint8 newAge2) public {
+        _age2 = newAge2;
+    }
 
 }

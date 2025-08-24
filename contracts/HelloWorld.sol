@@ -12,4 +12,12 @@ contract HelloWorld {
 
     string public message = "Hello World!";
 
+    address public wallet = 0xc35a45a081949E0ce2418a7e9400D492CFbaE43b;
+
+    bool public isValid = true;
+
+    enum Keys { ON, OFF }
+
+    Keys public status = Keys.ON;
+
 }

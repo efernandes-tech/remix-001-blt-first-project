@@ -1,8 +1,10 @@
 // SPDX-License-Identifier: MIT
 
+// https://sepolia.etherscan.io/address/0x432eb6259bea9f971196c0bee04f60a3efa32c45#code
+
 pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/utils/Strings.sol";
+import "./Strings.sol";
 
 contract EvenOrOddV4 {
 

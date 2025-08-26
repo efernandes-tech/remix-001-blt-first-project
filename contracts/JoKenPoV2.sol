@@ -22,9 +22,15 @@ contract JoKenPoV2 {
         choice1 = Options.NONE;
     }
 
-    function play(Options newChoice) public {
+    function getBalance() public view returns(uint) {
+        require(owner == msg.sender, "You don't have this permission.");
+        return address(this).balance;
+    }
+
+    function play(Options newChoice) public payable {
         require(newChoice != Options.NONE, "Invalid choice");
         require(player1 != msg.sender, "Wait the another player.");
+        require(msg.value >= 0.01 ether, "Invalid bid.");
 
         if (choice1 == Options.NONE) {
             player1 = msg.sender;

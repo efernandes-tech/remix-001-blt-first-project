@@ -1,16 +1,20 @@
 // SPDX-License-Identifier: MIT
 
-// https://sepolia.etherscan.io/address/0xef017d347c8a4ba48a6b9a3d4906be2f60f26ca6#code
-
 pragma solidity ^0.8.12;
 
-contract JoKenPoV1 {
+contract JoKenPoV2 {
 
     enum Options { NONE, ROCK, PAPER, SCISSORS } // 0, 1, 2, 3
 
     Options private choice1 = Options.NONE;
     address private player1;
     string public result = "";
+
+    address payable private immutable owner;
+
+    constructor(){
+        owner = payable(msg.sender);
+    }
 
     function update(string memory newResult) private {
         result = newResult;

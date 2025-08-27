@@ -12,6 +12,12 @@ contract BookDatabase {
     uint32 private nextId = 0;
     mapping(uint32 => Book) public books;
 
+    address private immutable owner;
+
+    constructor(){
+        owner = msg.sender;
+    }
+
     function addBook(Book memory newBook) public {
         nextId++;
         books[nextId] = newBook;
@@ -37,8 +43,13 @@ contract BookDatabase {
             books[id].year = newBook.year;
     }
 
-    function removeBook(uint32 id) public {
+    function removeBook(uint32 id) public restricted {
         delete books[id];
+    }
+
+    modifier restricted() {
+        require(owner == msg.sender, "You don't have permission.");
+        _;
     }
 
 }

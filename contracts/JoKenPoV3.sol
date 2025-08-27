@@ -12,20 +12,26 @@ contract JoKenPoV3 {
 
     address payable private immutable owner;
 
-    address[] public players;
+    struct Player {
+        address wallet;
+        uint32 wins;
+    }
+
+    Player[] public players;
 
     constructor(){
         owner = payable(msg.sender);
     }
 
-    function exists(address winner) private view returns(bool) {
+    function updateWinner(address winner) private {
         for(uint i=0; i < players.length; i++){
-            if(players[i] == winner){ 
-                return true;
+            if(players[i].wallet == winner){ 
+                players[i].wins++;
+                return;
             }
         }
 
-        return false;
+        players.push(Player(winner, 1));
     }
 
     function finishGame(string memory newResult, address winner) private {
@@ -33,8 +39,7 @@ contract JoKenPoV3 {
         payable(winner).transfer((contractAddress.balance / 100) * 90);
         owner.transfer(contractAddress.balance);
 
-        if (!exists(winner))
-            players.push(winner);
+        updateWinner(winner);
 
         result = newResult;
         player1 = address(0);
@@ -73,5 +78,25 @@ contract JoKenPoV3 {
             player1 = address(0);
             choice1 = Options.NONE;
         }
+    }
+
+    function getLeaderboard() public view returns(Player[] memory) {
+        if(players.length < 2) return players;
+
+        Player[] memory arr = new Player[](players.length);
+        for (uint i=0; i < players.length; i++)
+            arr[i] = players[i];
+
+        for (uint i=0; i < arr.length - 1; i++) {
+            for (uint j=1; j < arr.length; j++) {
+                if (arr[i].wins < arr[j].wins) {
+                    Player memory change = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = change;
+                }
+            }
+        }
+
+        return arr;
     }
 }
